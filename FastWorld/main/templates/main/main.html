@@ -1,0 +1,36 @@
+{% extends 'main/shablon.html' %}
+
+{% block title %}
+Main page
+{% endblock %}
+
+{% block content %}
+<style>
+    a {
+        text-decoration: none;
+    }
+</style>
+    <div class="features">
+            {% if user.profile.lang == 'R' %}
+                <p>Привет,</p>
+                <img class="img-thumbnail" src="{{ user.profile.avatar }}" width="8%">
+                <h1>{{ user.first_name }} {{ user.last_name }}</h1>
+                <p>@{{ user.username }}</p>
+                <p></p>
+                <p><strong>Пол: </strong>{{ user.profile.gender }}</p>
+                <p><strong>Дата рождения: </strong>{{ user.profile.birth_date }}</p>
+                <p><strong>Страна: </strong>{{ user.profile.city }}</p>
+                <a href='{% url "set" %}'><li><button class="btn btn-danger">Изменить мой профиль и настройки</li></button></a>
+            {% else %}
+                <p>Hello,</p>
+                <img class="img-thumbnail" src="{{ user.profile.avatar }}" width="8%">
+                <h1>{{ user.first_name }} {{ user.last_name }}</h1>
+                <p>@{{ user.username }}</p>
+                <p></p>
+                <p><strong>Gender: </strong>{{ user.profile.gender }}</p>
+                <p><strong>Birthday: </strong>{{ user.profile.birth_date }}</p>
+                <p><strong>Country: </strong>{{ user.profile.city }}</p>
+                <a href='{% url "set" %}'><li><button class="btn btn-danger">Change my profile and settings</li></button></a>
+            {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'main/shablon.html' %}
+
+{% block title %}
+About project
+{% endblock %}
+
+{% block content %}
+<style>
+    a {
+        text-decoration: none;
+    }
+</style>
+<div class="features">
+        {% if user.profile.lang == 'R' %}
+            <h1>О проекте</h1>
+            <p>Целью этого проекта является создание безопасной, бесплатной и конфиденциальной социальной сети. Мы уважаем наших пользователей, и они нам доверяют. Свобода – главный приоритет нашей сети. Например, мы никогда не заблокируем пользователя за его политические взгляды. Мы никогда и никому не передадим информацию о вас, ваших сообщениях, ваших паролях. Будьте осторожны и используйте Fast World, чтобы быть в безопасности!</p>
+            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><button type="button" class="btn btn-danger">Читать полностью</button></a>
+        {% else %}
+            <h1>About project</h1>
+            <p>The goal of this project is creating safety, free and confidential social network. We respect our users and they believe us. Freedom is the main priority of our network. For example, we will never ban user, for his political opinion. We will never give to anybody information about you, your messages, your passwords. Take care, and use Fast World to be safe!</p>
+            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><button type="button" class="btn btn-danger">Read completely</button></a>
+        {% endif %}
+</div>
+{% endblock %}

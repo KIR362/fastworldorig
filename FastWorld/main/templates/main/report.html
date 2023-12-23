@@ -1,0 +1,37 @@
+{% extends 'main/shablon.html' %}
+{% load bootstrap4 %}
+
+{% block title %}
+Report
+{% endblock %}
+
+{% block content %}
+<style>
+    a {
+        text-decoration: none;
+    }
+</style>
+    <div class="features">
+        {% if user.profile.lang == 'R' %}
+            <h1>Жалоба</h1>
+            <h3>Если вы нашли опасные публикации, пожалуйста, сообщите об этом. Вы можете отправить ссылку или имя пользователя. Ваша жалоба будет на 100% анонимным. Наша техподдержка @FaWoSupport (Telegram)</h3>
+            <form action="{% url 'reporting' %}" method="post">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                <p></p>
+                <p></p>
+                <button class="btn btn-danger" name="button" type="submit">Пожаловаться</button>
+            </form>
+        {% else %}
+            <h1>Report</h1>
+            <h3>If you found dangerous publications, please, report it. You can send a link or a username. Your report will be 100% anonymous. Our tech support @FaWoSupport (Telegram)</h3>
+            <form action="{% url 'reporting' %}" method="post">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                <p></p>
+                <p></p>
+                <button class="btn btn-danger" name="button" type="submit">Report</button>
+            </form>
+        {% endif %}
+    </div>
+{% endblock %}

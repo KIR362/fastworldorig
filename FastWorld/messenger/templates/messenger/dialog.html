@@ -1,0 +1,85 @@
+{% extends 'main/shablon.html' %}
+
+{% load static %}
+
+{% block title %}
+Messenger
+{% endblock %}
+
+{% block content %}
+<style>
+    a {
+        text-decoration: none;
+    }
+    form {
+        float: center;
+    }
+
+    button.round {
+        width: 30px; height: 30px;
+        background-color: #e03e25;
+        border-radius: 50%;
+        border: none;
+    }
+</style>
+<script>
+setTimeout(function(){
+ location.reload();
+}, 10000);
+</script>
+    <div class="features">
+        {% if user.profile.lang == 'R' %}
+            <h1>Это Ваш чат с @{{ username }}</h1>
+            {% for mess in messages1 %}
+                {% if mess.is_readed %}
+                    <div class = "alert alert-warning">
+                        <h3><strong>{{ mess.sender }}</strong></h3>
+                        <hr>
+                        <h5>{{ mess.text }}</h5>
+                        <small>{{ mess.date_stamp }}</small> ✔️✔️
+                        <a href='{% url "del_mess" mess.id %}'><button class="round"><img src="{% static 'messenger/img/trash.png' %}" width="16" height="16" alt="Delete"></button></a>
+                    </div>
+                {% else %}
+                    <div class = "alert alert-warning">
+                        <h3><strong>{{ mess.sender }}</strong></h3>
+                        <hr>
+                        <h5>{{ mess.text }}</h5>
+                        <small>{{ mess.date_stamp }}</small>
+                        <a href='{% url "del_mess" mess.id %}'><button class="round"><img src="{% static 'messenger/img/trash.png' %}" width="16" height="16" alt="Delete"></button></a>
+                    </div>
+                {% endif %}
+            {% endfor %}
+          <form action="" method="post">
+              {% csrf_token %}
+              {{ form.as_p }}
+              <button class="btn btn-danger" type="submit">Отправить</button>
+          </form>
+        {% else %}
+            <h1>It's your chat with @{{ username }}</h1>
+            {% for mess in messages1 %}
+                {% if mess.is_readed %}
+                    <div class = "alert alert-warning">
+                        <h3><strong>{{ mess.sender }}</strong></h3>
+                        <hr>
+                        <h5>{{ mess.text }}</h5>
+                        <small>{{ mess.date_stamp }}</small> ✔️✔️
+                        <a href='{% url "del_mess" mess.id %}'><button class="round"><img src="{% static 'messenger/img/trash.png' %}" width="16" height="16" alt="Delete"></button></a>
+                    </div>
+                {% else %}
+                    <div class = "alert alert-warning">
+                        <h3><strong>{{ mess.sender }}</strong></h3>
+                        <hr>
+                        <h5>{{ mess.text }}</h5>
+                        <small>{{ mess.date_stamp }}</small>
+                        <a href='{% url "del_mess" mess.id %}'><button class="round"><img src="{% static 'messenger/img/trash.png' %}" width="16" height="16" alt="Delete"></button></a>
+                    </div>
+                {% endif %}
+            {% endfor %}
+             <form action="" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="btn btn-danger" type="submit">Send</button>
+             </form>
+        {% endif %}
+    </div>
+{% endblock %}

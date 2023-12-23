@@ -1,0 +1,35 @@
+{% extends 'main/shablon.html' %}
+{% load bootstrap4 %}
+
+{% block title %}
+New Topic
+{% endblock %}
+
+{% block content %}
+<style>
+    a {
+        text-decoration: none;
+    }
+</style>
+    <div class="features">
+        {% if user.profile.lang == 'R' %}
+            <h1>Добавить новую тему:</h1>
+            <form action="{% url 'new_topic' %}" method="post">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                <p></p>
+                <p></p>
+                <button name="submit" class="btn btn-danger">Добавить тему</button>
+            </form>
+        {% else %}
+            <h1>Add a new topic:</h1>
+            <form action="{% url 'new_topic' %}" method="post">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                <p></p>
+                <p></p>
+                <button name="submit" class="btn btn-danger">Add topic</button>
+            </form>
+        {% endif %}
+    </div>
+{% endblock %}

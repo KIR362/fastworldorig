@@ -1,0 +1,48 @@
+{% extends 'main/shablon.html' %}
+
+{% block title %}
+Topic: {{ topic }}
+{% endblock %}
+
+{% block content %}
+<style>
+    a {
+        text-decoration: none;
+    }
+</style>
+    <div class="features">
+        {% if user.profile.lang == 'R' %}
+            <h1>Тема: {{ topic }}</h1>
+            <p>Заметки:</p>
+            <p>
+                <a href='{% url "new_entry" topic.id %}'><button class="btn btn-danger"><i class="fas fa-plus-circle" ></i>Добавить новую заметку</li></button></a>
+            </p>
+            <ul>
+                {% for entry in entries %}
+                    <li>
+                        <p>{{ entry.date_added|date:'M d, Y H:i' }}</p>
+                        <p>{{ entry.text|linebreaks }}</p>
+                    </li>
+                {% empty %}
+                    <li>Вы ещё не добавили ни одной заметки к этой теме.</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <h1>Topic: {{ topic }}</h1>
+            <p>Entries:</p>
+            <p>
+                <a href='{% url "new_entry" topic.id %}'><button class="btn btn-danger"><i class="fas fa-plus-circle" ></i>Add a new entry</li></button></a>
+            </p>
+            <ul>
+                {% for entry in entries %}
+                    <li>
+                        <p>{{ entry.date_added|date:'M d, Y H:i' }}</p>
+                        <p>{{ entry.text|linebreaks }}</p>
+                    </li>
+                {% empty %}
+                    <li>There are not entries for this topic yet.</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+{% endblock content %}

@@ -1,0 +1,36 @@
+{% extends 'main/shablon.html' %}
+
+{% block title %}Edit a publication{% endblock %}
+
+{% block content %}
+<style>
+    a {
+        text-decoration: none;
+    }
+</style>
+    <div class="features">
+        {% if user.profile.lang == 'R' %}
+            <h1>Редактирование</h1>
+            <form method="post">
+                {% csrf_token %}<br>
+                {{ form.title }}<br>
+                {{ form.intro }}<br>
+                {{ form.full_text }}<br>
+                {{ form.date }}<br>
+                <p>{{ error }}</p>
+                <button class="btn btn-danger" type="submit">Изменить</button>
+            </form>
+        {% else %}
+            <h1>Edit</h1>
+            <form method="post">
+                {% csrf_token %}<br>
+                {{ form.title }}<br>
+                {{ form.intro }}<br>
+                {{ form.full_text }}<br>
+                {{ form.date }}<br>
+                <p>{{ error }}</p>
+                <button class="btn btn-danger" type="submit">Edit</button>
+            </form>
+        {% endif %}
+    </div>
+{% endblock %}

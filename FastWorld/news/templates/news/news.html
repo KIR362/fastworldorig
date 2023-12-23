@@ -1,0 +1,50 @@
+{% extends 'main/shablon.html' %}
+{% load static %}
+{% block title %}Main Feed{% endblock %}
+
+{% block content %}
+<style>
+    a {
+        text-decoration: none;
+    }
+</style>
+    <div class="features">
+        {% if user.profile.lang == 'R' %}
+            <form class="form-inline my-2 my-lg-0" action="{% url 'news' %}">
+                <input class="form-control mr-sm-2" type="search" placeholder="🔎 Поиск..." aria-label="Search" name="search">
+                <p></p>
+                <button type="submit" class="btn btn-outline-danger">Искать</button>
+            </form>
+            <h1>Лента</h1>
+            {% for el in news %}
+                <div class = "alert alert-warning">
+                    <h1><strong>{{ el.owner }}</strong></h1>
+                    <hr>
+                    <h3>{{ el.title }}</h3>
+                    <p>{{ el.intro }}</p>
+                    <a href="{% url 'pub_detail' el.id %}" class="btn btn-warning">Читать полностью</a>
+                </div>
+            {% empty %}
+                <h3>По Вашему запросу публикации не найдены.</h3>
+            {% endfor %}
+        {% else %}
+            <form class="form-inline my-2 my-lg-0" action="{% url 'news' %}">
+                <input class="form-control mr-sm-2" type="search" placeholder="🔎 Search..." aria-label="Search" name="search">
+                <p></p>
+                <button type="submit" class="btn btn-outline-danger">Search</button>
+            </form>
+            <h1>Main Feed</h1>
+            {% for el in news %}
+                <div class = "alert alert-warning">
+                    <h1><strong>{{ el.owner }}</strong></h1>
+                    <hr>
+                    <h3>{{ el.title }}</h3>
+                    <p>{{ el.intro }}</p>
+                    <a href="{% url 'pub_detail' el.id %}" class="btn btn-warning">Read completely</a>
+                </div>
+            {% empty %}
+                <h3>There aren't any publications by your request.</h3>
+            {% endfor %}
+        {% endif %}
+        </div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'main/shablon.html' %}
+
+{% block title %}
+New Entry
+{% endblock %}
+
+{% block content %}
+<style>
+    a {
+        text-decoration: none;
+    }
+</style>
+    <div class="features">
+        {% if user.profile.lang == 'R' %}
+            <p><a href="{% url 'topic' topic.id %}">Тема: {{ topic }}</a></p>
+            <h1>Добавить новую заметку:</h1>
+            <form action="{% url 'new_entry' topic.id %}" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button name="submit" class="btn btn-danger">Добавить заметку</button>
+            </form>
+        {% else %}
+            <p><a href="{% url 'topic' topic.id %}">Topic: {{ topic }}</a></p>
+            <h1>Add a new entry:</h1>
+            <form action="{% url 'new_entry' topic.id %}" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button name="submit" class="btn btn-danger">Add entry</button>
+            </form>
+        {% endif %}
+    </div>
+{% endblock content %}

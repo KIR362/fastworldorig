@@ -1,0 +1,79 @@
+{% extends 'main/shablon.html' %}
+
+{% block title %}
+{{ user.username }}
+{% endblock %}
+
+{% load static %}
+
+{% block content %}
+<style>
+    a {
+        text-decoration: none;
+    }
+    button.round {
+        width: 30px; height: 30px;
+        background-color: #e03e25;
+        border-radius: 50%;
+        border: none;
+    }
+    .button {
+        text-decoration: none;
+    }
+</style>
+    <div class="features">
+        {% if us.profile.lang == 'R' %}
+           <img class="img-thumbnail" src="{{ user.profile.avatar }}" width="8%">
+            <h1>{{ user.first_name }} {{ user.last_name }}</h1>
+            <p>@{{ user.username }}</p>
+            <a href='{% url "dialog" user.username %}'><button class="round"><i class="bi bi-chat-left-text"></i></button></a> Написать сообщение
+            <h2>{{ f_count }} подписчиков</h2>
+            <p></p>
+            {% if is_fol %}
+                <a href="{% url 'follow' user.id %}"><button class="btn btn-danger">Подписаться</button></a>
+            {% else %}
+                <a href="{% url 'unfollow' user.id %}"><button class="btn btn-danger">Отписаться</button></a>
+            {% endif %}
+            <p><strong>Пол: </strong>{{ user.profile.gender }}</p>
+            <p><strong>Дата рождения: </strong>{{ user.profile.birth_date }}</p>
+            <p><strong>Страна: </strong>{{ user.profile.city }}</p>
+
+            <h2>Публикации:</h2>
+            {% for pub in pubs %}
+                <div class = "alert alert-warning">
+                    <h1><strong>{{ pub.owner }}</strong></h1>
+                    <hr>
+                    <h3>{{ pub.title }}</h3>
+                    <p>{{ pub.intro }}</p>
+                    <a href="{% url 'pub_detail' pub.id %}" class="btn btn-warning">Читать полностью</a>
+                </div>
+            {% endfor %}
+        {% else %}
+             <img class="img-thumbnail" src="{{ user.profile.avatar }}" width="8%">
+            <h1>{{ user.first_name }} {{ user.last_name }}</h1>
+            <p>@{{ user.username }}</p>
+            <a href='{% url "dialog" user.username %}'><button class="round"><i class="bi bi-chat-left-text"></i></button></a> Chat
+            <h2>{{ f_count }} followers</h2>
+            <p></p>
+            {% if is_fol %}
+                <a href="{% url 'follow' user.id %}"><button class="btn btn-danger">Follow</button></a>
+            {% else %}
+                <a href="{% url 'unfollow' user.id %}"><button class="btn btn-danger">Unfollow</button></a>
+            {% endif %}
+            <p><strong>Gender: </strong>{{ user.profile.gender }}</p>
+            <p><strong>Birthday: </strong>{{ user.profile.birth_date }}</p>
+            <p><strong>Country: </strong>{{ user.profile.city }}</p>
+
+            <h2>Publications:</h2>
+            {% for pub in pubs %}
+                <div class = "alert alert-warning">
+                    <h1><strong>{{ pub.owner }}</strong></h1>
+                    <hr>
+                    <h3>{{ pub.title }}</h3>
+                    <p>{{ pub.intro }}</p>
+                    <a href="{% url 'pub_detail' pub.id %}" class="btn btn-warning">Read completely</a>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock %}

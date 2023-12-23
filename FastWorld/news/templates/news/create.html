@@ -1,0 +1,36 @@
+{% extends 'main/shablon.html' %}
+
+{% block title %}Create a publication{% endblock %}
+
+{% block content %}
+<style>
+    a {
+        text-decoration: none;
+    }
+</style>
+    <div class="features">
+        {% if user.profile.lang == 'R' %}
+            <h1>Новая публикация</h1>
+            <form method="post">
+                {% csrf_token %}<br>
+                {{ form.title }}<br>
+                {{ form.intro }}<br>
+                {{ form.full_text }}<br>
+                {{ form.date }}<br>
+                <p>{{ error }}</p>
+                <button class="btn btn-danger" type="submit">Создать</button>
+            </form>
+        {% else %}
+            <h1>New publication</h1>
+            <form method="post">
+                {% csrf_token %}<br>
+                {{ form.title }}<br>
+                {{ form.intro }}<br>
+                {{ form.full_text }}<br>
+                {{ form.date }}<br>
+                <p>{{ error }}</p>
+                <button class="btn btn-danger" type="submit">Create</button>
+            </form>
+        {% endif %}
+    </div>
+{% endblock %}

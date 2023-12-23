@@ -1,0 +1,72 @@
+{% extends 'main/shablon.html' %}
+
+{% block title %}
+Messenger
+{% endblock %}
+
+{% block content %}
+<style>
+    a {
+        text-decoration: none;
+    }
+</style>
+
+<script>
+setTimeout(function(){
+ location.reload();
+}, 10000);
+</script>
+    <div class="features">
+        {% if user.profile.lang == 'R' %}
+            <h1>Чаты:</h1>
+            {% if last_messages_list %}
+                {% for mess in last_messages_list %}
+                    {% if request.user == mess.sender %}
+                        <a href="{% url 'dialog' mess.reciever.username  %}">
+                            <div class = "alert alert-warning">
+                                    <h3><strong>{{ mess.reciever }}</strong></h3>
+                                    <hr>
+                                    <small>{{ mess.sender }}: </small><h5>{{ mess.text }}</h5>
+                            </div>
+                        </a>
+                    {% else %}
+                        <a href="{% url 'dialog' mess.sender.username  %}">
+                            <div class = "alert alert-warning">
+                            <h3><strong>{{ mess.sender }}</strong></h3>
+                            <hr>
+                            <small>{{ mess.sender }}: </small><h5>{{ mess.text }}</h5>
+                            </div>
+                        </a>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <h3>У Вас ещё нет чатов. Пора бы начать общение! *Треск сверчков...*</h3>
+            {% endif %}
+        {% else %}
+            <h1>Chats:</h1>
+            {% if last_messages_list %}
+                {% for mess in last_messages_list %}
+                    {% if request.user == mess.sender %}
+                        <a href="{% url 'dialog' mess.reciever.username  %}">
+                            <div class = "alert alert-warning">
+                                    <h3><strong>{{ mess.reciever }}</strong></h3>
+                                    <hr>
+                                    <small>{{ mess.sender }}: </small><h5>{{ mess.text }}</h5>
+                            </div>
+                        </a>
+                    {% else %}
+                        <a href="{% url 'dialog' mess.sender.username  %}">
+                            <div class = "alert alert-warning">
+                            <h3><strong>{{ mess.sender }}</strong></h3>
+                            <hr>
+                            <small>{{ mess.sender }}: </small><h5>{{ mess.text }}</h5>
+                            </div>
+                        </a>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <h3>You don't have any chats yet. It's time to start communicating! *Crackling of crickets...*</h3>
+            {% endif %}
+        {% endif %}
+    </div>
+{% endblock %}

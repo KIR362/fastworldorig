@@ -1,0 +1,94 @@
+{% extends 'main/shablon.html' %}
+
+{% block title %}{{ article.title }}{% endblock %}
+
+{% load static %}
+
+{% block content %}
+<style>
+    a {
+        text-decoration: none;
+    }
+    button.round {
+        width: 30px; height: 30px;
+        background-color: #e03e25;
+        border-radius: 50%;
+        border: none;
+    }
+    .button {
+        text-decoration: none;
+    }
+</style>
+    <div class="features">
+        {% if user.profile.lang == 'R' %}
+            <a href='{% url "user" article.owner.id %}' class="alert-link"><h1>{{ article.owner }}</h1></a>
+            <h2>{{ article.title }}</h2>
+            <p>{{ article.date_added }}</p>
+            <p>{{ article.full_text }}</p>
+            <p>Просмотры: {{ article.views }}</p>
+            {% if owner %}
+                <a href='{% url "pub_update" article.id %}'><button class="round"><img src="{% static 'news/images/pencil.png' %}" width="16" height="16" alt="Edit"></button></a>
+                <a href='{% url "pub_delete" article.id %}'><button class="round"><img src="{% static 'news/images/trash.png' %}" width="16" height="16" alt="Delete"></button></a>
+            {% endif %}
+            <p></p>
+            <p></p>
+            <form action="{% url 'pub_detail' article.id %}" method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button name="submit" class="btn btn-danger">Добавить комментарий</button>
+                    <p></p>
+                    <p></p>
+            </form>
+            <h3>Комментарии:</h3>
+            {% for comment in comments %}
+                <div class="alert alert-warning" role="alert">
+                    <a href="{% url 'user' comment.owner.id %}" class="alert-link"><h3 class="alert-heading">{{ comment.owner }}</h3></a>
+                    <hr>
+                    <p>{{ comment.text }}</p>
+                    <small>{{ comment.date }}</small>
+                    <a href='{% url "com_delete" comment.id %}'><button class="round"><img src="{% static 'news/images/trash.png' %}" width="16" height="16" alt="Delete"></button></a>
+                </div>
+                <p></p>
+                <p></p>
+                <p></p>
+            {% empty %}
+                <h4>Для этой публикации ещё не было добавлено ни одного комментария.</h4>
+            {% endfor %}
+        {% else %}
+            <a href='{% url "user" article.owner.id %}' class="alert-link"><h1>{{ article.owner }}</h1></a>
+            <h2>{{ article.title }}</h2>
+            <p>{{ article.date_added }}</p>
+            <p>{{ article.full_text }}</p>
+            <p>Views: {{ article.views }}</p>
+            {% if owner %}
+                <a href='{% url "pub_update" article.id %}'><button class="round"><img src="{% static 'news/images/pencil.png' %}" width="16" height="16" alt="Edit"></button></a>
+                <a href='{% url "pub_delete" article.id %}'><button class="round"><img src="{% static 'news/images/trash.png' %}" width="16" height="16" alt="Delete"></button></a>
+            {% endif %}
+            <p></p>
+            <p></p>
+            <form action="{% url 'pub_detail' article.id %}" method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button name="submit" class="btn btn-danger">Add comment</button>
+                    <p></p>
+                    <p></p>
+            </form>
+            <h3>Comments:</h3>
+            {% for comment in comments %}
+                <div class="alert alert-warning" role="alert">
+                    <a href="{% url 'user' comment.owner.id %}" class="alert-link"><h3 class="alert-heading">{{ comment.owner }}</h3></a>
+                    <hr>
+                    <p>{{ comment.text }}</p>
+                    <small>{{ comment.date }}</small>
+                    <a href='{% url "com_delete" comment.id %}'><button class="round"><img src="{% static 'news/images/trash.png' %}" width="16" height="16" alt="Delete"></button></a>
+                </div>
+                <p></p>
+                <p></p>
+                <p></p>
+            {% empty %}
+                <h4>There are no comments for this publication yet.</h4>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+{% endblock %}

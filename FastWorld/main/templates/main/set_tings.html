@@ -1,0 +1,33 @@
+{% extends 'main/shablon.html' %}
+{% load bootstrap4 %}
+
+{% block title %}
+Main Page
+{% endblock %}
+
+{% block content %}
+<style>
+    a {
+        text-decoration: none;
+    }
+</style>
+    <div class="features">
+        {% if user.profile.lang == 'R' %}
+            <form action="{% url 'set' %}" method="post">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                <p></p>
+                <p></p>
+                <button class="btn btn-danger" name="button" type="submit">Настроить</button>
+            </form>
+        {% else %}
+            <form action="{% url 'set' %}" method="post">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                <p></p>
+                <p></p>
+                <button class="btn btn-danger" name="button" type="submit">Set</button>
+            </form>
+        {% endif %}
+    </div>
+{% endblock %}

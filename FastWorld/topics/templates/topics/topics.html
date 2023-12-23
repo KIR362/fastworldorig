@@ -1,0 +1,40 @@
+{% extends 'main/shablon.html' %}
+
+{% block title %}
+Your Topics
+{% endblock %}
+
+{% block content %}
+<style>
+    a {
+        text-decoration: none;
+    }
+</style>
+    <div class="features">
+        {% if user.profile.lang == 'R' %}
+            <h1>Ваши темы:</h1>
+            <ul>
+                {% for topic in topicis %}
+                    <li>
+                        <a href="{% url 'topic' topic.id%}">{{ topic }}</a>
+                    </li>
+                {% empty %}
+                    <li>Вы ещё не добавили ни одной темы.</li>
+                {% endfor %}
+            </ul>
+            <a href='{% url "new_topic" %}'><li><button class="btn btn-danger"><i class="fas fa-plus-circle" ></i>Добавить новую тему</li></button></a>
+        {% else %}
+            <h1>Your topics:</h1>
+            <ul>
+                {% for topic in topicis %}
+                    <li>
+                        <a href="{% url 'topic' topic.id%}">{{ topic }}</a>
+                    </li>
+                {% empty %}
+                    <li>You haven't added any topics yet.</li>
+                {% endfor %}
+            </ul>
+            <a href='{% url "new_topic" %}'><li><button class="btn btn-danger"><i class="fas fa-plus-circle" ></i>Add a new topic</li></button></a>
+        {% endif %}
+    </div>
+{% endblock content %}
